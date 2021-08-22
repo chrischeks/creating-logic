@@ -26,7 +26,7 @@ export class CreatingLogicService extends UniversalService {
       status: 'success',
       message: 'Okra-login-refresh-logout-bingo',
       statusCode: 200,
-      data: { name, userId, balanceBeforeRefresh: `${amount}`, balanceAfterRefresh: newAmount, logOutMessage },
+      data: { name, userId, balanceBeforeRefresh: `${amount}`, balanceAfterRefresh: `${newAmount}`, logOutMessage },
     };
   };
 }
