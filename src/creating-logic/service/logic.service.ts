@@ -8,21 +8,25 @@ export class CreatingLogicService extends UniversalService {
   private walletService = new WalletService();
   public processLoginRefreshAndLogout = async (): Promise<IOutput> => {
     const login: ILoginResponse = await this.authService.processLogin();
-    const { status, userInfo, amount, mockVariable, walletId, message } = login;
-    if (status === 'failed') return { status, message: `Login failed (${message})` };
+    const { status, userId, amount, message, name, statusCode } = login;
+    if (status === 'error') return { status, message: message || 'Login error', statusCode };
 
-    const refreshWallet = await this.walletService.processRefreshWallet(mockVariable, walletId);
-    const { status: refreshWalletStatus, newAmount } = refreshWallet;
-    if (refreshWalletStatus === 'failed') return { status: refreshWalletStatus, message: `Wallet refresh failed (${message})` };
+    const refreshWallet = await this.walletService.processRefreshWallet('mock', userId);
+    const { status: refreshWalletStatus, newAmount, statusCode: refreshWalletCode } = refreshWallet;
+    if (refreshWalletStatus === 'error')
+      return { status: refreshWalletStatus, message: message || 'Wallet refresh error', statusCode: refreshWalletCode };
 
     const logOut = await this.authService.processLogout();
-    const { status: logOutStatus, message: logOutMessage, statusText, statusCode } = logOut;
-    if (logOutStatus === 'failed') return { status: logOutStatus, message: statusText, statusCode };
-    const { name, id } = userInfo;
+    const { status: logOutStatus, message: logOutMessage, statusText, statusCode: logOutCode } = logOut;
+    console.log(logOutStatus, statusText, statusCode, 'status: logOutStatus, message: statusText, statusCode');
+
+    if (logOutStatus === 'error') return { status: logOutStatus, message: statusText, statusCode: logOutCode };
+
     return {
       status: 'success',
       message: 'Okra-login-refresh-logout-bingo',
-      data: { name, userId: id, balanceBeforeRefresh: amount, balanceAfterRefresh: newAmount, logOutMessage },
+      statusCode: 200,
+      data: { name, userId, balanceBeforeRefresh: `${amount}`, balanceAfterRefresh: newAmount, logOutMessage },
     };
   };
 }

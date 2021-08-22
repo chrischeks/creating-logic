@@ -11,11 +11,9 @@ interface IBase {
 }
 
 export interface ILoginResponse extends IBase {
-  userInfo?: {
-    name: string;
-    id: string;
-  };
-  amount?: string;
+  name?: string;
+  userId?: string;
+  amount?: number;
   mockVariable?: string;
   walletId?: string;
 }

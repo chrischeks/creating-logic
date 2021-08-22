@@ -13,7 +13,7 @@
     "loginAPI" :"https://api.okra.ng/v2/mock-api/login",
     "walletRefreshAPI" :"https://api.okra.ng/v2/mock-api/refresh-wallet",
     "logoutAPI" :"https://api.okra.ng/v2/mock-api/logout",
-    "cred":{ "username": "okrauser", "password": "okrapass" }
+    "cred":{ "username": "okra_user", "password": "okra_pass" }
 },
     "PORT":3111
 }
