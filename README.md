@@ -1,6 +1,6 @@
 # Project Title
 
-## NodeJS & MongoDB bank accounts management REST API
+## NodeJS create logic
 
 ## Requirements
 
