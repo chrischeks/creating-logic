@@ -37,8 +37,8 @@ If the installation was successful, you should be able to run the following comm
 
 ## Install
 
-    $ git clone https://github.com/chrischeks/account-management.git
-    $ cd account-management
+    $ git clone https://github.com/chrischeks/creating-logic.git
+    $ cd creating-logic
     $ npm install
 
 ## Configure app

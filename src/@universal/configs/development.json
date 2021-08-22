@@ -15,6 +15,6 @@
     "logoutAPI" :"https://api.okra.ng/v2/mock-api/logout",
     "cred":{ "username": "okra_user", "password": "okra_pass" }
 },
-    "PORT":3111
+    "PORT":3113
 }
 }

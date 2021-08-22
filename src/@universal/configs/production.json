@@ -5,6 +5,10 @@
         "origin": "your.domain.com",
         "credentials": true
     },
+    "log": {
+        "format": "dev",
+        "dir": "../logs"
+    },
   "APIS":{
     "loginAPI" :"https://api.okra.ng/v2/mock-api/login",
     "walletRefreshAPI" :"https://api.okra.ng/v2/mock-api/refresh-wallet",
@@ -12,5 +16,5 @@
     "cred":{ "username": "okra_user", "password": "okra_pass" }
 
 },
-    "PORT":3111}
+    "PORT":3113}
 }
