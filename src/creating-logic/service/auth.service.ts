@@ -8,14 +8,14 @@ export class AuthService extends UniversalService {
   public processLogin = async (): Promise<ILoginResponse> => {
     const requestBody = { username, password };
     const response = await this.centralAPICaller(loginAPI, requestBody, { 'content-type': 'application/json' }, 'post');
-    const { status, data, statusText, statusCode } = response;
+    const { status, data, statusText, statusCode, result } = response;
 
     if (status === 'success') {
       const { id, wallet, name } = data.profile;
       const { amount } = wallet;
       return { userId: id, amount, name, status: 'success' };
     } else {
-      return { statusText, statusCode, status: 'error' };
+      return { statusText, statusCode, status: 'error', message: result.message };
     }
   };
 

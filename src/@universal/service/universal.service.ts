@@ -1,4 +1,3 @@
-import { Error } from 'mongoose';
 import fetch from 'node-fetch';
 
 class UniversalService {
@@ -10,7 +9,7 @@ class UniversalService {
       if (ok) {
         return response.json();
       } else {
-        return { statusText, statusCode };
+        return { statusText, statusCode, result: await response.json() };
       }
     } catch (error) {
       throw new Error('Operation failed');

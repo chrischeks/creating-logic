@@ -8,19 +8,19 @@ export class CreatingLogicService extends UniversalService {
   private walletService = new WalletService();
   public processLoginRefreshAndLogout = async (): Promise<IOutput> => {
     const login: ILoginResponse = await this.authService.processLogin();
-    const { status, userId, amount, message, name, statusCode } = login;
-    if (status === 'error') return { status, message: message || 'Login error', statusCode };
+    const { status, userId, amount, message, name, statusCode, statusText } = login;
+    if (status === 'error') return { status, message: message || statusText || 'Login error', statusCode };
 
-    const refreshWallet = await this.walletService.processRefreshWallet('mock', userId);
-    const { status: refreshWalletStatus, newAmount, statusCode: refreshWalletCode } = refreshWallet;
+    const refreshWallet = await this.walletService.processRefreshWallet(userId);
+    const { status: refreshWalletStatus, newAmount, statusCode: refreshWalletCode, statusText: refreshWalletStatusText } = refreshWallet;
     if (refreshWalletStatus === 'error')
-      return { status: refreshWalletStatus, message: message || 'Wallet refresh error', statusCode: refreshWalletCode };
+      return { status: refreshWalletStatus, message: message || refreshWalletStatusText || 'Wallet refresh error', statusCode: refreshWalletCode };
 
     const logOut = await this.authService.processLogout();
-    const { status: logOutStatus, message: logOutMessage, statusText, statusCode: logOutCode } = logOut;
-    console.log(logOutStatus, statusText, statusCode, 'status: logOutStatus, message: statusText, statusCode');
+    const { status: logOutStatus, message: logOutMessage, statusText: logoutStatusText, statusCode: logOutCode } = logOut;
 
-    if (logOutStatus === 'error') return { status: logOutStatus, message: statusText, statusCode: logOutCode };
+    if (logOutStatus === 'error')
+      return { status: logOutStatus, message: logOutMessage || logoutStatusText || 'Logout error', statusCode: logOutCode };
 
     return {
       status: 'success',
