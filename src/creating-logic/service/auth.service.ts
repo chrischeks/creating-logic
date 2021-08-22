@@ -20,16 +20,13 @@ export class AuthService extends UniversalService {
   };
 
   public processLogout = async (): Promise<ILogout> => {
-    // const logoutAPI = 'https://api.okra.ng/v2/mock-api/logout';
     const response = await this.centralAPICaller(logoutAPI, null, null, 'get');
-    const { status, message, data, statusText, statusCode } = response;
-    console.log(response);
-
+    const { status, data, statusText, statusCode, result } = response;
     if (status === 'success') {
       const { status, msg } = data;
       return { status, message: msg };
     } else {
-      return { status: 'failed', statusText, statusCode };
+      return { status: 'failed', statusText, statusCode, message: result.message };
     }
   };
 }
